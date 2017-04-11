@@ -13,18 +13,21 @@ RUN apt-get install -y php7.0 libapache2-mod-php7.0 php7.0-fpm php7.0-common php
  php7.0-tidy php7.0-xmlrpc php7.0-xsl
 
 RUN mv  /var/www/html /var/www/public
-COPY files/index.php /var/www/public/
 RUN echo "ServerName DEBIAN" >> /etc/apache2/apache2.conf
 RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
-RUN sed -i 's/DocumentRoot "\/var\/www\/html"/DocumentRoot "\/var\/www\/public"/g' /etc/apache2/sites-enabled/000-default.conf
+RUN rm /etc/apache2/sites-enabled/000-default.conf
+COPY files/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 
 #------------------------------
 # composer
 #______________________________
 RUN curl -sS https://getcomposer.org/installer |  php -- --install-dir=/usr/local/bin --filename=composer
 
+#------------------------------
+# permissão de escrita para logs,cache
+#______________________________
 
-
+RUN chmod 777 -R /var/www
 EXPOSE 80 443
 RUN a2enmod rewrite
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
