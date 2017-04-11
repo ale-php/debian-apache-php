@@ -10,10 +10,9 @@ RUN apt-get update
 RUN apt-get install -y php7.0 php7.0-mysql php7.0-sqlite
 RUN mv  /var/www/html /var/www/public
 COPY files/index.php /var/www/public/
-RUN rm /var/www/public/index.html
 RUN echo "ServerName DEBIAN" >> /etc/apache2/apache2.conf
 RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
-RUN sed -i 's/DocumentRoot "\/var\/www\/html"/DocumentRoot "\/var\/www\/public"/g' /etc/httpd/conf/httpd.conf
+RUN sed -i 's/DocumentRoot "\/var\/www\/html"/DocumentRoot "\/var\/www\/public"/g' /etc/apache2/apache2.conf
 
 #------------------------------
 # composer
