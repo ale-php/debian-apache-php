@@ -8,8 +8,7 @@ RUN apt-key add dotdeb.gpg
 RUN rm dotdeb.gpg
 RUN apt-get update
 RUN apt-get install -y php7.0 php7.0-mysql php7.0-sqlite
-RUN mkdir /var/www/public
-RUN rm -rf /var/www/html
+RUN mv  /var/www/html /var/www/public
 COPY files/index.php /var/www/public/
 RUN rm /var/www/public/index.html
 RUN echo "ServerName DEBIAN" >> /etc/apache2/apache2.conf
