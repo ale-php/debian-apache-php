@@ -1,6 +1,6 @@
 FROM alephp/debian-apache
 MAINTAINER Alexandre E Souza <alexandre@indev.net.br>
-RUN apt-get install -y wget nano curl git  
+RUN apt-get install -y wget nano curl git
 RUN echo 'deb http://packages.dotdeb.org jessie all' >> /etc/apt/sources.list
 RUN echo 'deb-src http://packages.dotdeb.org jessie all' >> /etc/apt/sources.list
 RUN wget https://www.dotdeb.org/dotdeb.gpg
@@ -16,7 +16,7 @@ RUN mv  /var/www/html /var/www/public
 COPY files/index.php /var/www/public/
 RUN echo "ServerName DEBIAN" >> /etc/apache2/apache2.conf
 RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
-RUN sed -i 's/DocumentRoot "\/var\/www\/html"/DocumentRoot "\/var\/www\/public"/g' /etc/apache2/apache2.conf
+RUN sed -i 's/DocumentRoot "\/var\/www\/html"/DocumentRoot "\/var\/www\/public"/g' /etc/apache2/sites-enabled/000-default.conf
 
 #------------------------------
 # composer
